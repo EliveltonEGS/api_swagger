@@ -26,7 +26,7 @@ class Contact
         ];
     }
 
-    public function getId(): string
+    public function getId(): ?string
     {
         return $this->id;
     }
