@@ -1,17 +1,55 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API of Contacts",
+        "title": "API Contacts",
         "version": "1.0"
     },
     "paths": {
         "/api/contacts": {
+            "get": {
+                "tags": [
+                    "Contact all"
+                ],
+                "summary": "Get All contacts",
+                "description": "Return all contacts",
+                "operationId": "e9270e1058a41908e2d7f1e41077a8af",
+                "responses": {
+                    "200": {
+                        "description": "Contact found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "69ab85ce68ca5"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "João Silva"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "joao@email.com"
+                                        },
+                                        "contact": {
+                                            "type": "string",
+                                            "example": "11999999999"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "post": {
                 "tags": [
-                    "Contacts"
+                    "Contacts Create"
                 ],
                 "summary": "New Contact",
-                "operationId": "a3b0baf957a16c1ed505f2e8985c254c",
+                "operationId": "4de38e2d3da335d903194f1f1aa2c0f3",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -47,12 +85,75 @@
                     }
                 }
             }
+        },
+        "/api/contacts/{id}": {
+            "get": {
+                "tags": [
+                    "Contact find"
+                ],
+                "summary": "Find by ID",
+                "description": "Return contact",
+                "operationId": "3131f75778e261f721e04f31e1fd2ed2",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID contact",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "69ab85ce68ca5"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Contact found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "69ab85ce68ca5"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "João Silva"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "joao@email.com"
+                                        },
+                                        "contact": {
+                                            "type": "string",
+                                            "example": "11999999999"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Contato não encontrado"
+                    }
+                }
+            }
         }
     },
     "tags": [
         {
-            "name": "Contacts",
-            "description": "Contacts"
+            "name": "Contacts Create",
+            "description": "Contacts Create"
+        },
+        {
+            "name": "Contact find",
+            "description": "Contact find"
+        },
+        {
+            "name": "Contact all",
+            "description": "Contact all"
         }
     ]
 }

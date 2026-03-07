@@ -23,6 +23,6 @@ class CreateContactUseCase
             $dto->phone
         );
 
-        return $this->contactService->createContact($contact);
+        return $this->contactService->store($contact);
     }
 }

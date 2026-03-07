@@ -3,9 +3,11 @@
 namespace Domain\Contact\Repositoreis;
 
 use Domain\Contact\Entities\Contact;
+use Illuminate\Database\Eloquent\Collection;
 
 interface ContactRepositoryInterface
 {
-    public function save(Contact $contact): void;
-    public function find(string $id): ?Contact;
+    public function store(Contact $contact): void;
+    public function show(string $id): ?Contact;
+    public function all(): Collection;
 }

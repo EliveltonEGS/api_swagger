@@ -1,0 +1,121 @@
+<?php
+
+namespace App\Http\Controllers\Contact;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Contact\ContactRequest;
+use App\Models\Contact;
+use Application\Contact\DTO\ContactCreateDTO;
+use Application\Contact\UseCase\CreateContactUseCase;
+use Application\Contact\UseCase\FindByIdContactUseCase;
+use Application\Contact\UseCase\GetAllContactUseCase;
+use Illuminate\Http\JsonResponse;
+
+#http://localhost:8080/api/documentation
+
+/**
+ * @OA\Info(
+ *     title="API Contacts",
+ *     version="1.0"
+ * )
+ */
+class ContactController extends Controller
+{
+    public function __construct(
+        private CreateContactUseCase $createContactUseCase,
+        private FindByIdContactUseCase $findbyIdContactUseCase,
+        private GetAllContactUseCase $getAllContactUseCase
+    ) {}
+
+    /**
+     * @OA\Post(
+     *     path="/api/contacts",
+     *     summary="New Contact",
+     *     tags={"Contacts Create"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"name","email", "phone"},
+     *             @OA\Property(property="name", type="string", example="João"),
+     *             @OA\Property(property="email", type="string", example="joao@email.com"),
+     *             @OA\Property(property="phone", type="string", example="119999999")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=201,
+     *         description="Created"
+     *     )
+     * )
+     */
+    public function store(ContactRequest $request): JsonResponse
+    {
+        $dto = ContactCreateDTO::makeFromRequest($request->validated());
+        $contact = $this->createContactUseCase->execute($dto);
+
+        return response()->json($contact->toArray(), 201);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/api/contacts/{id}",
+     *     summary="Find by ID",
+     *     description="Return contact",
+     *     tags={"Contact find"},
+     *
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         description="ID contact",
+     *         required=true,
+     *         @OA\Schema(type="string", example="69ab85ce68ca5")
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Contact found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="id", type="string", example="69ab85ce68ca5"),
+     *             @OA\Property(property="name", type="string", example="João Silva"),
+     *             @OA\Property(property="email", type="string", example="joao@email.com"),
+     *             @OA\Property(property="contact", type="string", example="11999999999")
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=404,
+     *         description="Contato não encontrado"
+     *     )
+     * )
+     */
+    public function show(string $id): JsonResponse
+    {
+        $contact = $this->findbyIdContactUseCase->execute($id);
+        return response()->json($contact->toArray());
+    }
+
+
+    /**
+     * @OA\Get(
+     *     path="/api/contacts",
+     *     summary="Get All contacts",
+     *     description="Return all contacts",
+     *     tags={"Contact all"},
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Contact found",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="id", type="string", example="69ab85ce68ca5"),
+     *             @OA\Property(property="name", type="string", example="João Silva"),
+     *             @OA\Property(property="email", type="string", example="joao@email.com"),
+     *             @OA\Property(property="contact", type="string", example="11999999999")
+     *         )
+     *     )
+     * )
+     */
+    public function index(): JsonResponse
+    {
+        $data = $this->getAllContactUseCase->execute();
+        return response()->json($data, 200);
+    }
+}
