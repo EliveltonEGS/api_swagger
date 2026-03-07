@@ -22,7 +22,7 @@ class ContactController extends Controller
 {
     public function __construct(
         private CreateContactUseCase $createContactUseCase,
-        private FindByIdContactUseCase $findbyIdContactUseCase,
+        private FindByIdContactUseCase $findByIdContactUseCase,
         private GetAllContactUseCase $getAllContactUseCase
     ) {}
 
@@ -76,7 +76,7 @@ class ContactController extends Controller
      *             @OA\Property(property="id", type="string", example="69ab85ce68ca5"),
      *             @OA\Property(property="name", type="string", example="João Silva"),
      *             @OA\Property(property="email", type="string", example="joao@email.com"),
-     *             @OA\Property(property="contact", type="string", example="11999999999")
+     *             @OA\Property(property="phone", type="string", example="11999999999")
      *         )
      *     ),
      *
@@ -88,7 +88,7 @@ class ContactController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $contact = $this->findbyIdContactUseCase->execute($id);
+        $contact = $this->findByIdContactUseCase->execute($id);
 
         if (!$contact) {
             return response()->json(['message' => 'Contact not found'], 404);
@@ -112,7 +112,7 @@ class ContactController extends Controller
      *             @OA\Property(property="id", type="string", example="69ab85ce68ca5"),
      *             @OA\Property(property="name", type="string", example="João Silva"),
      *             @OA\Property(property="email", type="string", example="joao@email.com"),
-     *             @OA\Property(property="contact", type="string", example="11999999999")
+     *             @OA\Property(property="phone", type="string", example="11999999999")
      *         )
      *     )
      * )
