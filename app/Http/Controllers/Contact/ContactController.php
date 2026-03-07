@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Contact;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\ContactRequest;
-use App\Models\Contact;
 use Application\Contact\DTO\ContactCreateDTO;
 use Application\Contact\UseCase\CreateContactUseCase;
 use Application\Contact\UseCase\FindByIdContactUseCase;

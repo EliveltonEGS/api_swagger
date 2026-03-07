@@ -3,7 +3,7 @@
 namespace Domain\Contact\Services;
 
 use Domain\Contact\Entities\Contact;
-use Domain\Contact\Repositoreis\ContactRepositoryInterface;
+use Domain\Contact\Repositories\ContactRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class ContactService

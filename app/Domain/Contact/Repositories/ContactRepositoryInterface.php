@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Contact\Repositoreis;
+namespace Domain\Contact\Repositories;
 
 use Domain\Contact\Entities\Contact;
 use Illuminate\Database\Eloquent\Collection;

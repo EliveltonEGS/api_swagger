@@ -4,7 +4,7 @@ namespace Infrastructure\Database\Contact\Repositories;
 
 use App\Models\Contact as EloquentContact;
 use Domain\Contact\Entities\Contact;
-use Domain\Contact\Repositoreis\ContactRepositoryInterface;
+use Domain\Contact\Repositories\ContactRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
 class EloquentContactRepository implements ContactRepositoryInterface

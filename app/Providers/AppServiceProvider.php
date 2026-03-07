@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Domain\Contact\Repositoreis\ContactRepositoryInterface;
+use Domain\Contact\Repositories\ContactRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Infrastructure\Database\Contact\Repositories\EloquentContactRepository;
 
