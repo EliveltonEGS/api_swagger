@@ -5,7 +5,7 @@ namespace Domain\Contact\Entities;
 class Contact
 {
     public function __construct(
-        private ?string $id = null,
+        private ?string $id,
         private string $name,
         private string $email,
         private string $phone
